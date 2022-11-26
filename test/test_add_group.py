@@ -1,7 +1,14 @@
 from model.group import Group
+from generator.groups import GroupData
+import pytest
 
 
-def test_add_group(app):
+test_data = GroupData().read_group_data_from_excel()
+
+
+
+@pytest.mark.parametrize("group", test_data)
+def test_add_group(app, group):
     group = Group()
     old_list = app.group.get_group_list()
     app.group.add_new(group.name)
